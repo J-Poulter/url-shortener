@@ -49,4 +49,26 @@ describe('UrlForm', () => {
     fireEvent.click(submitButton);
     await waitFor(() => expect(mockAddPostToDom).toHaveBeenCalled())
   })
+
+  it('should disable the submit button to prevent the user from submitting without having both inputs filled out', async () => {
+    const { getByText, getByPlaceholderText } = await render(
+      <UrlForm addPostToDom={mockAddPostToDom} />
+    )
+
+    const titleInput = getByPlaceholderText('Title...');
+    const urlInput = getByPlaceholderText('URL to Shorten...');
+    const submitButton = getByText('Shorten Please!');
+
+    expect(submitButton).toBeDisabled();
+
+    fireEvent.change(titleInput, { target: { value: 'My Test Url' } });
+    expect(submitButton).toBeDisabled();
+
+    fireEvent.change(titleInput, { target: { value: '' } });
+    fireEvent.change(urlInput, { target: { value: 'www.enteredLongUrl.com' } });
+    expect(submitButton).toBeDisabled();
+
+    fireEvent.change(titleInput, { target: { value: 'My Test Url' } });
+    expect(submitButton).not.toBeDisabled();
+  })
 })
