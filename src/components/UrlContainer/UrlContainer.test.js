@@ -39,10 +39,10 @@ describe('UrlContainer', () => {
       <UrlContainer urls={mockUrls} deletePost={mockDeletePost} />
     )
 
-    const deleteButton = getAllByText('Delete')
-    fireEvent.click(deleteButton[0])
+    const deleteButton = getAllByText('Delete');
+    fireEvent.click(deleteButton[0]);
 
-    expect(mockDeletePost).toHaveBeenCalled()
-    expect(mockDeletePost).toHaveBeenCalledWith(0)
+    expect(mockDeletePost).toHaveBeenCalled();
+    expect(mockDeletePost).toHaveBeenCalledWith(0);
   });
 })
