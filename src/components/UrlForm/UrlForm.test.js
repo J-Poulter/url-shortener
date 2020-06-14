@@ -50,6 +50,23 @@ describe('UrlForm', () => {
     await waitFor(() => expect(mockAddPostToDom).toHaveBeenCalled())
   })
 
+  it('should clear the input fields after a post has been successfully submitted', async() => {
+    const { getByText, getByPlaceholderText } = render(
+      <UrlForm addPostToDom={mockAddPostToDom}/>
+    )
+
+    const titleInput = getByPlaceholderText('Title...');
+    const urlInput = getByPlaceholderText('URL to Shorten...');
+    const submitButton = getByText('Shorten Please!');
+
+    fireEvent.change(titleInput, { target: { value: 'My Test Url' } });
+    fireEvent.change(urlInput, { target: { value: 'www.enteredLongUrl.com' } });
+    await waitFor(() => fireEvent.click(submitButton));
+
+    expect(titleInput.value).toBe('');
+    expect(urlInput.value).toBe('');
+  })
+
   it('should disable the submit button to prevent the user from submitting without having both inputs filled out', async () => {
     const { getByText, getByPlaceholderText } = await render(
       <UrlForm addPostToDom={mockAddPostToDom} />
