@@ -35,8 +35,6 @@ describe('UrlContainer', () => {
   });
 
   it('should invoke the delete function with the correct arguments', () => {
-    const mockDeletePost = jest.fn();
-
     const { getAllByText } = render(
       <UrlContainer urls={mockUrls} deletePost={mockDeletePost} />
     )
@@ -46,6 +44,5 @@ describe('UrlContainer', () => {
 
     expect(mockDeletePost).toHaveBeenCalled()
     expect(mockDeletePost).toHaveBeenCalledWith(0)
-
   });
 })

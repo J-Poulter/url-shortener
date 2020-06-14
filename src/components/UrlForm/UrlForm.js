@@ -28,7 +28,7 @@ class UrlForm extends Component {
 
   render() {
     return (
-      <form onSubmit={e => this.handleSubmit(e)}>
+      <form>
         <input
           type='text'
           placeholder='Title...'
@@ -47,7 +47,7 @@ class UrlForm extends Component {
           required
         />
 
-        <button type='submit'>
+        <button disabled={!this.state.title || !this.state.urlToShorten} onClick={e => this.handleSubmit(e)}>
           Shorten Please!
         </button>
       </form>
